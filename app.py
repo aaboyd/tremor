@@ -5,15 +5,13 @@ import os
 
 
 app = Flask(__name__)
+app.config.from_object('settings.base');
+app.config.from_envvar('FLASK_CONFIG');
 
-db_path = os.path.realpath( os.path.join(os.path.dirname(__file__), 'data.db') );
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path;
 
 db.init_app(app)
 
-@app.before_first_request
-def build_db():
+with app.app_context():
     db.create_all();
 
 @app.route('/')

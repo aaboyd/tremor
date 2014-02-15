@@ -1,15 +1,13 @@
 from . import db
 
 class Record(db.Model):
-    Src = db.Column(db.String(2))
-    Eqid = db.Column(db.Integer)
-    Version = db.Column(db.Integer)
-    Datetime = db.Column(db.DateTime, primary_key=True)
-    Lat = db.Column(db.Float)
-    Lon = db.Column(db.Float)
-    Magnitude = db.Column(db.Float)
-    Depth = db.Column(db.Float)
-    NST = db.Column(db.Integer)
-    Region = db.Column(db.String(120))
-
-
+    src = db.Column(db.String(2))
+    eqid = db.Column(db.String(12), primary_key=True)
+    version = db.Column(db.Integer)
+    datetime = db.Column(db.DateTime)
+    lat = db.Column(db.Float)
+    lon = db.Column(db.Float)
+    magnitude = db.Column(db.Float)
+    depth = db.Column(db.Float)
+    nst = db.Column(db.Integer)
+    region = db.Column(db.String(120))
