@@ -1,3 +1,5 @@
+import os
+
 '''
     Python magic to get reference to file at ../test.db'
 '''
