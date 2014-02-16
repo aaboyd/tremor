@@ -9,8 +9,8 @@ from sqlalchemy import func
 
 import time, traceback, StringIO, csv, requests
 
-from app import app
-from models import db, Record
+from tremor import app
+from tremor.models import db, Record
 
 EXECUTE_EVERY = 60
 
@@ -99,3 +99,7 @@ def execute_import(*args, **kwargs):
 
 def start():
     execute_import();
+
+if __name__ == '__main__':
+    start();
+    reactor.run();

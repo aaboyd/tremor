@@ -1,40 +1,21 @@
-from flask import Flask, request
-from sqlalchemy.ext.declarative import DeclarativeMeta
-import os, json
+from flask import Blueprint, request
+import json
 
-from models import db, Record
-from datetime import datetime
-from dateutil.tz import tzutc
+from tremor.models import db, Record
+from tremor import InvalidArgumentError
 
+earthquakes = Blueprint('earthquakes', __name__)
 
-app = Flask(__name__)
-app.config.from_object('settings.base');
-
-if os.environ.get('FLASK_CONFIG') is not None:
-    app.config.from_object(os.environ.get('FLASK_CONFIG'));
-
-db.init_app(app)
-
-with app.app_context():
-    db.create_all();
-
-class InvalidArgumentError(Exception):
-    pass;
-
-@app.errorhandler(InvalidArgumentError)
-def handle_sqlalchemy_assertion_error(err):
-    return json.dumps(error=err.message), 400;
-
-@app.route('/earthquakes.json')
-def earthquakes():
+@earthquakes.route('/earthquakes.json', methods=['GET'])
+def get_earthquakes():
     query = db.session.query(Record);
 
     lower_bound = None;
     upper_bound = None;
 
-    lower_bound, upper_bound = parse_on(query);
+    lower_bound, upper_bound = parse_on(request);
 
-    since_lower = parse_since(query);
+    since_lower = parse_since(request);
 
     if since_lower is not None and lower_bound is not None and since_lower > lower_bound:
         lower_bound = since_lower;
@@ -60,26 +41,26 @@ def earthquakes():
     return json.dumps(results_as_dicts);
 
 
-def parse_on(query):
+def parse_on(request):
     
     if request.args.has_key('on'):
         try:
             on_datetime = datetime.fromtimestamp(int(request.args['on']), tzutc());
         except:
-            raise InvalidArgumentError()
+            raise InvalidArgumentError("Unable to parse 'on' parameter")
 
         return on_datetime.replace(hour=0, minute=0, second=0, microsecond=0),\
             on_datetime.replace(hour=23, minute=59, second=59, microsecond=59);
     
     return None, None;
 
-def parse_since(query):
+def parse_since(request):
 
     if request.args.has_key('since'):
         try:
             since_datetime = datetime.fromtimestamp(int(request.args['since']), tzutc());
         except:
-            raise InvalidArgumentError("Unable to parse 'since' parameter"), 400;
+            raise InvalidArgumentError("Unable to parse 'since' parameter");
 
         return since_datetime.fromtimestamp(int(request.args['since']), tzutc());
 

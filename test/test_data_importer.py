@@ -1,25 +1,14 @@
 import os, unittest
 
-'''
-    Change FLASK_CONFIG for proper app configuration
-
-    Must be done before app is imported
-'''
-if __name__ == '__main__':
-    os.environ['FLASK_CONFIG'] = 'settings.test';
-
-import sys
-testdir = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(testdir, '..')))
-
 from dateutil.tz import tzutc
 from datetime import datetime
 
 from sqlalchemy import func
 
-from data_importer import transform_date, parse_and_insert_data
-from app import app
-from models import db, Record
+from tremor import app
+from tremor.data_importer import transform_date, parse_and_insert_data
+from tremor.models import db, Record
+
 from util import EARLY_DATA, EARLY_DATA_SIZE, LATER_DATA, LATER_DATA_SIZE
 
 class TestTransformDate(unittest.TestCase):
@@ -78,6 +67,4 @@ class TestDataImporter(unittest.TestCase):
             num_records = len(db.session.query(Record).all());
 
         return num_records
-
-if __name__ == '__main__':
-    unittest.main()
+    
