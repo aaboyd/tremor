@@ -1,5 +1,6 @@
+import os, json
+
 from flask import Flask
-import os
 
 from models import db
 
@@ -23,7 +24,7 @@ def create_app():
     
     @app.errorhandler(InvalidArgumentError)
     def handle_sqlalchemy_assertion_error(err):
-        return json.dumps(error=err.message), 400;
+        return json.dumps( {'error':err.message} ), 400;
 
     return app;
 

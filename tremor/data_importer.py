@@ -15,16 +15,6 @@ from tremor.models import db, Record
 EXECUTE_EVERY = 60
 
 '''
-    Get data from hard coded URL
-'''
-def import_data():
-    raw_data = requests.get('http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M1.txt').text
-    
-    parse_and_insert_data(raw_data);
-    
-    print 'Time : ', time.time()
-
-'''
     Use CSV reader and parse the data and insert it into the database
 '''
 def parse_and_insert_data(data):
@@ -78,28 +68,3 @@ def create_record(row):
                   depth=float(row[7]),
                   nst=int(row[8]),
                   region=row[9])
-
-'''
-    Twisted plumbing
-    execute_fetch creates a repeating task that is a best effort task.
-    best effort meaning, if it fails we just try again in the 'EXECUTE EVERY' time
-
-    It's using the built in twisted reactor to continually call the same method.
-
-    start gets things going, the data importer is started when the app is started
-    look in app.py for it's invocation
-'''
-def execute_import(*args, **kwargs):
-    try:
-        import_data()
-    except Exception:
-        print(traceback.format_exc())
-
-    reactor.callLater(EXECUTE_EVERY, execute_import);
-
-def start():
-    execute_import();
-
-if __name__ == '__main__':
-    start();
-    reactor.run();

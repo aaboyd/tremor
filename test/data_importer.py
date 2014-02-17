@@ -2,7 +2,6 @@ import os, unittest
 
 from dateutil.tz import tzutc
 from datetime import datetime
-
 from sqlalchemy import func
 
 from tremor import app
@@ -11,13 +10,18 @@ from tremor.models import db, Record
 
 from util import EARLY_DATA, EARLY_DATA_SIZE, LATER_DATA, LATER_DATA_SIZE
 
-class TestTransformDate(unittest.TestCase):
-    def test_data_importer_transform_date(self):
-        control = datetime(2014, 2, 22, 2, 2, 22, 0, tzinfo=tzutc());
+class TransformDate(unittest.TestCase):
 
-        self.assertEqual( transform_date('Saturday, February 22, 2014 02:02:22 UTC'), control );
+    def test_invalid(self):
+        with self.assertRaises(Exception):
+            transform_date('2014-02-22 02:02:22+0:00');
 
-class TestDataImporter(unittest.TestCase):
+    def test_valid(self):
+        expected = datetime(2014, 2, 22, 2, 2, 22, 0, tzinfo=tzutc());
+
+        self.assertEqual( transform_date('Saturday, February 22, 2014 02:02:22 UTC'), expected );
+
+class DataImporter(unittest.TestCase):
 
     def setUp(self):
         with app.app_context():

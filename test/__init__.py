@@ -1,2 +1,3 @@
-from test_data_importer import *
-from test_app_earthquakes import *
+from data_importer import *
+from routes_earthquakes_endpoints import *
+from routes_earthquakes_params import *
