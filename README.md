@@ -1,4 +1,7 @@
 # Tremor
+
+*This is a code sample written by [Alex Boyd](http://alexboyd.me), any comments / questions / concerns are welcome, just drop in a github issue.  You can find my resume at [Alex Boyd's Resume](http://sdrv.ms/1b2GXeJ).*
+
 [![Build Status](https://travis-ci.org/aaboyd/tremor.png?branch=master)](https://travis-ci.org/aaboyd/tremor)
 [![Coverage Status](https://coveralls.io/repos/aaboyd/tremor/badge.png?branch=master)](https://coveralls.io/r/aaboyd/tremor?branch=master)
 
@@ -22,11 +25,15 @@ The importer uses the data to determine if a result is new or has already been i
 ## Eqid is a unique value
 It is used as the PrimaryKey for each record
 
-## Date's will never be in a different format than UTC
+## Date's are always UTC
 In general python's default date implementation is not complete, to avoid having to code against the date changing, just assuming everything is UTC.
 
-## Optimizations are not necessary right now
+## Optimizations are not a priority at this point
 In general nothing is optimized, there are probably faster and better ways to filter, sort, and execute different queries, but this implementation was quick to show some coding abilities.
+
+# Work still to be done
+There is not a lot of tests for mixing different parameters.  Logging has been stripped out and needs to be re-added with proper log statements not just ```print``` commands.  Probably a lot of other stuff that I am missing.
+
 
 # Running and Testing
 ## Install Requirements
