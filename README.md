@@ -1,4 +1,5 @@
 # Tremor
+[![Build Status](https://travis-ci.org/aaboyd/tremor.png?branch=master)](https://travis-ci.org/aaboyd/tremor)
 A simple application and solution to [a coding challenge](https://gist.github.com/bmarini/23c235aef10714d22a54).
 
 Implementation is written in python with the help of :
@@ -31,7 +32,7 @@ pip install -r requirements.txt
 
 ## Run Tests
 ```
-coverage run test.py
+coverage run -include=./**/* test.py --verbose
 ```
 
 ## View Coverage Results
