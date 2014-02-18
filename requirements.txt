@@ -4,3 +4,4 @@ Flask-SQLAlchemy==1.0
 requests==2.2.1
 python-dateutil==2.2
 coverage==3.7.1
+coveralls==0.4.1
