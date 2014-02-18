@@ -1,5 +1,9 @@
 # Tremor
 [![Build Status](https://travis-ci.org/aaboyd/tremor.png?branch=master)](https://travis-ci.org/aaboyd/tremor)
+[![Coverage Status](https://coveralls.io/repos/aaboyd/tremor/badge.png?branch=master)](https://coveralls.io/r/aaboyd/tremor?branch=master)
+
+----
+
 A simple application and solution to [a coding challenge](https://gist.github.com/bmarini/23c235aef10714d22a54).
 
 Implementation is written in python with the help of :
