@@ -7,6 +7,9 @@
 
 ----
 
+**Note : Written in Windows, sorry about any platform related issues**
+
+
 A simple application and solution to [a coding challenge](https://gist.github.com/bmarini/23c235aef10714d22a54).
 
 Implementation is written in python with the help of :
@@ -21,9 +24,6 @@ Implementation is written in python with the help of :
 
 ## Data from the usgs source will always be in reverse chronological order
 The importer uses the data to determine if a result is new or has already been imported
-
-## Eqid is a unique value
-It is used as the PrimaryKey for each record
 
 ## Date's are always UTC
 In general python's default date implementation is not complete, to avoid having to code against the date changing, just assuming everything is UTC.
@@ -55,3 +55,7 @@ coverage report -m
 ```
 python run.py
 ```
+
+### Open up your browser
+The project will read the environment variable PORT and use that, default is 5000.
+Using the default, so http://localhost:5000/earthquakes.json should return data for all earthquakes.
