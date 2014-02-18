@@ -7,4 +7,4 @@ if __name__ == "__main__":
     
     from test import *
 
-    unittest.main(verbosity=2)
+    unittest.main()

@@ -6,3 +6,5 @@ python:
 script: 
   - "coverage run --include=./**/* test.py"
   - "coverage report -m"
+after_success:
+  coveralls
