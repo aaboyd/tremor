@@ -4,5 +4,5 @@ python:
   - "2.6"
   - "2.7"
 script: 
-  - "coverage run test.py"
+  - "coverage run --include=./**/* test.py"
   - "coverage report -m"
